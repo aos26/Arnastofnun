@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from random import randrange
 
 app = Flask(__name__)
 CORS(app)
@@ -43,10 +44,17 @@ resource_fields = {
 class  WordFetcher(Resource):
     @marshal_with(resource_fields)
     def get(self, word_id):
-        result = WordModel.query.filter_by(id = word_id).first()
-        if not result:
+        count = WordModel.query.count()
+        print(count)
+        results = []
+        for i in range(word_id):
+            randomId = randrange(0, count)
+            results.append(WordModel.query.filter_by(id = randomId).first())
+
+
+        if not results:
             abort(404, message="Ekkert orð fannst með þessu Id")
-        return result, 200
+        return results, 200
 
     @marshal_with(resource_fields)
     def put(self, word_id):
@@ -63,6 +71,7 @@ class  WordFetcher(Resource):
         return num_rows_deleted, 204
 
 api.add_resource(WordFetcher, "/words/<int:word_id>")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
