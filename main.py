@@ -21,7 +21,9 @@ class WordModel(db.Model):
     fjoldi_ritmalssafn = db.Column(db.Integer, nullable=True)
 
 
-#db.create_all()
+db.create_all()
+db.session.commit()
+
 word_put_args = reqparse.RequestParser()
 word_put_args.add_argument("flid", type=int, help = "Auðkenni í íslenskri nútímamálsorðabók")
 word_put_args.add_argument("ord", type=str, help = "Orðið")
