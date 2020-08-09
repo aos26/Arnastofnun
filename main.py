@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['DATABASE_URL'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
 class WordModel(db.Model):
