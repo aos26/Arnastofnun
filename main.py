@@ -3,6 +3,7 @@ from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from random import randrange
+import os
 
 app = Flask(__name__)
 CORS(app)
