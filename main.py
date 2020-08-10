@@ -47,7 +47,7 @@ resource_fields = {
 class  WordFetcher(Resource):
     @marshal_with(resource_fields)
     def get(self, word_id):
-        count = 61121#WordModel.query.count()
+        count = WordModel.query.count()
         print(count)
         results = []
         for i in range(word_id):
