@@ -17,20 +17,16 @@ class WordModel(db.Model):
     ord = db.Column(db.String(255), nullable=False)
     ordflokkur = db.Column(db.String(10), nullable=False)
     texti = db.Column(db.String(500), nullable=False)
-    fjoldi_risamalheild = db.Column(db.Integer, nullable=False)
-    fjoldi_ritmalssafn = db.Column(db.Integer, nullable=True)
 
 
-#db.create_all()
-#db.session.commit()
+db.create_all()
+db.session.commit()
 
 word_put_args = reqparse.RequestParser()
 word_put_args.add_argument("flid", type=int, help = "Auðkenni í íslenskri nútímamálsorðabók")
 word_put_args.add_argument("ord", type=str, help = "Orðið")
 word_put_args.add_argument("ordflokkur", type=str, help = "Orðflokkurinn")
 word_put_args.add_argument("texti", type=str, help = "Skýring úr orðabókinni")
-word_put_args.add_argument("fjoldi_risamalheild", type=int, help = "Hversu oft orðið kemur fyrir í risamálheildinni")
-word_put_args.add_argument("fjoldi_ritmalssafn", type=int, help = "Fjöldi dæma í ritmálssafni")
 
 
 
@@ -40,8 +36,6 @@ resource_fields = {
     'ord': fields.String,
     'ordflokkur': fields.String,
     'texti': fields.String,
-    'fjoldi_risamalheild': fields.Integer,
-    'fjoldi_ritmalssafn': fields.Integer
 }
 
 class  WordFetcher(Resource):
@@ -63,7 +57,7 @@ class  WordFetcher(Resource):
     def put(self, word_id):
         args = word_put_args.parse_args()
         print(args)
-        word = WordModel(id=word_id, flid=args['flid'], ord=args['ord'], ordflokkur=args['ordflokkur'], texti=args['texti'], fjoldi_risamalheild=args['fjoldi_risamalheild'], fjoldi_ritmalssafn=args['fjoldi_ritmalssafn'])
+        word = WordModel(id=word_id, flid=args['flid'], ord=args['ord'], ordflokkur=args['ordflokkur'], texti=args['texti'])
         db.session.add(word)
         db.session.commit()
         return word, 201
