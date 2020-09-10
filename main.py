@@ -18,7 +18,6 @@ class WordModel(db.Model):
     ordflokkur = db.Column(db.String(10), nullable=False)
     texti = db.Column(db.String(500), nullable=False)
 
-
 db.create_all()
 db.session.commit()
 
