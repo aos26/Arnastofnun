@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
@@ -5,10 +7,14 @@ from flask_cors import CORS
 from random import randrange
 import os
 
+import dbconfig
+
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ldfrovvhtipeme:e3582d741179079bf39de8245ecd5de33a70cfea4dce98dd85dc98195cb25cd7@ec2-34-194-198-176.compute-1.amazonaws.com:5432/d2u1f498k23d6j'#'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = dbconfig.config['db_url']
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ldfrovvhtipeme:e3582d741179079bf39de8245ecd5de33a70cfea4dce98dd85dc98195cb25cd7@ec2-34-194-198-176.compute-1.amazonaws.com:5432/d2u1f498k23d6j'#'sqlite:///database.db'
 db = SQLAlchemy(app)
 
 class WordModel(db.Model):
