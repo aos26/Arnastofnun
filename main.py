@@ -101,10 +101,13 @@ class WordFetcher(Resource):
     @marshal_with(resource_fields)
     def get(self, word_id):
         count = WordModel.query.count()
-        print(count)
         results = []
+        randomNumbers = []
         for i in range(word_id):
             randomId = randrange(0, count)
+            while randomId in randomNumbers:
+                randomId = randrange(0, count)
+            randomNumbers.append(randomId)
             results.append(WordModel.query.filter_by(id = randomId).first())
 
 
